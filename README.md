@@ -1,5 +1,18 @@
 # Kathmandu Youth Fashion Forecaster - Project
 
+Venv:
+# from project root
+python -m venv venv
+# PowerShell
+.\venv\Scripts\Activate.ps1
+# or CMD
+.\venv\Scripts\activate
+# Mac/Linux
+source venv/bin/activate
+
+#Install packages
+pip install -r requirements.txt
+
 Folders:
 - data/ : raw CSVs and generated feature CSVs
 - src/  : pipeline scripts (cleaning, fe, training, eval, inventory)
