@@ -10,3 +10,4 @@ streamlit
 jupyter
 nltk
 wordcloud
+gtts
