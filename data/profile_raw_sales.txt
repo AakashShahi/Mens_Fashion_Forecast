@@ -1,0 +1,23 @@
+DATA PROFILE REPORT: raw_sales
+========================================
+
+NUMERICAL SUMMARY:
+             ItemID     UnitsSold
+count  28346.000000  28346.000000
+mean   24172.500000      1.441297
+std     8182.929702      1.537774
+min    10000.000000      0.000000
+25%    17086.250000      0.000000
+50%    24172.500000      1.000000
+75%    31258.750000      2.000000
+max    38345.000000     14.000000
+
+CATEGORICAL SUMMARY (Top 3):
+- Date: {'2025-01-29': 118, '2025-04-26': 112, '2025-08-15': 107}
+- City: {'Kathmandu': 9797, 'Lalitpur': 6101, 'Pokhara': 5333}
+- AgeGroup: {'20-24': 12607, '15-19': 7274, '25-30': 5644}
+- Gender: {'Male': 13961, 'Female': 13867, 'Non-binary': 518}
+- Category: {'T-Shirts': 6803, 'Pants': 5591, 'Hoodies': 5120}
+- StylePersona: {'K-Fashion Enthusiast': 7643, 'American Streetwear': 7431, 'Bohemian/Indie': 6923}
+- PriceTier: {'Low': 15649, 'Mid': 9863, 'Premium': 2834}
+

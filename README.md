@@ -1,143 +1,150 @@
-🌆 Kathmandu Youth Fashion Forecaster
-AI-Powered Trend Prediction, Psychology Modeling & Inventory Optimization for Nepali Fashion Retailers
+# 👕 Men's Fashion Forecast & Inventory Optimization (Thesis Project)
 
-This project is a research-based academic AI system designed to predict clothing trends among urban Nepali male youth (17–25) using:
+## 🚀 Project Overview
+A comprehensive data science system designed to predict fashion trends for Kathmandu's youth demographic (Males 17-25). This project integrates **Sales Data**, **Social Media Buzz**, and **Google Trends** to recommend optimal inventory levels.
 
-✔ Historical sales
-✔ Google Trends
-✔ Social media signals
-✔ Fashion psychology
-✔ Social Identity Theory
-✔ Machine learning forecasting (Prophet + XGBoost Hybrid)
-✔ Inventory optimization algorithms
+### ✨ New: Dynamic Forecasting & Smart Insights
+- **Dynamic Forecasting Engine**: Upload your latest sales CSV directly in the dashboard. The system automatically detects the date range and retrains the models (XGBoost, Prophet, Random Forest) to forecast from the *exact end date* of your data.
+- **Smart Natural Language Insights**: The dashboard now speaks your language. Instead of just numbers, you get prescriptive advice like "🚀 Safe & Trending: Aggressively stock up" or "⚠️ High Risk: Monitor daily."
 
-It includes a full Streamlit dashboard, an ML training pipeline, and supports live data ingestion from social media and web sources.
+Unlike standard forecasting tools that rely solely on sales history, this system employs a **Hybrid Intelligence** approach:
+1.  **Quantitative Analysis:** Uses an ensemble of **Prophet**, **XGBoost**, and **Random Forest** to predict future sales with high accuracy.
+2.  **Qualitative Analysis:** Integrates **Psychological Profiling** (Conformity vs. Uniqueness) and **Social Media Trends** (Hashtag analysis) to understand *why* items sell.
+3.  **Strategic Segmentation:** Uses **K-Means Clustering** (Unsupervised Learning) to group products into strategic categories like "Stars", "Cash Cows", "Opportunities", and "Risks".
 
+The goal is to help store managers answer: *"How many units should I order?"* and *"Why should I order them?"*
 
+---
 
-Project Structure
-Mens_Fashion_Forecast/
-│
-├── data/
-│   ├── raw CSV files
-│   ├── cohort datasets
-│   ├── google trends
-│   ├── social media datasets
-│   └── features/
-│        ├── feat_*.csv
-│        ├── trend_scores.csv
-│        ├── trend_scores_hybrid.csv
-│        ├── psychology_scores.csv
-│        └── inventory_recommendations.csv
-│
-├── models/
-│   ├── prophet_*.pkl
-│   ├── xgb_*.joblib
-│   └── predictions/
-│        ├── prophet_forecast_*.csv
-│        └── xgb_preds_*.csv
-│
-├── src/
-│   ├── 01_load_clean.py
-│   ├── 02_feature_engineer.py
-│   ├── 03_train_models.py
-│   ├── 04_evaluate.py
-│   ├── 05_inventory_opt.py
-│   ├── psychology/
-│   ├── trends/
-│   └── inventory/
-│
-├── app/
-│   ├── app.py
-│   └── pages/
-│        ├── 1_trends.py
-│        ├── 2_inventory.py
-│        └── 3_psychology.py
-│
-├── notebooks/
-│── requirements.txt
-└── README.md
+## 📂 Project Structure & Directory Intent
 
+Here is a detailed breakdown of the codebase to help you navigate the system:
 
-Key Features
-1️⃣ Trend Analyzer (Hybrid ML + Behavioral Signals)
-Social Media Trend Score
-Google Search Interest Score
-Sales Momentum
-Weighted TrendScore ranking
-Supports Hybrid Forecast:
-Prophet Forecast × Social × Google × Psychology × Sales Velocity
+### 1. `src/` (Source Code - The Brain)
+This folder contains the core logic of the **7-Phase Data Science Lifecycle**.
+*   **`pipeline.py`**: The **Master Controller**. Running this script executes the entire lifecycle (cleaning -> training -> reporting) in one go.
+*   **`01_load_clean.py`**: **Phase 2 & 3**. Handles raw data ingestion, profiling (detecting missing dates/values), and cleaning (imputing missing data, capping outliers).
+*   **`02_feature_engineer.py`**: **Phase 4**. Transforms raw dates and sales into machine-learning-ready features (e.g., "Days Since Last Sale", "Lagged Sales", "Social Buzz Score").
+*   **`03_train_models.py`**: **Phase 5**. The training engine. It trains three separate models (**Prophet**, **XGBoost**, **Random Forest**) for *every* product category.
+*   **`04_evaluate.py`**: **Phase 5**. Uses **Time-Series Cross-Validation** to rigorously test the models and select the best one based on RMSE (Root Mean Square Error).
+*   **`05_inventory_opt.py`**: **Phase 7**. The decision engine. Converts the ML predictions into concrete "Order X units" recommendations based on risk thresholds.
+*   **`06_generate_insights.py`**: **Phase 6**. Generates the natural language "Executive Summary" report by analyzing the patterns found by the models.
+*   **`clustering/kmeans_segmentation.py`**: **The "Thesis Upgrade"**. Implements Unsupervised Learning to segment inventory into clusters (Stars, Cash Cows, Opportunities, Risks).
+*   **`psychology/psychology_engine.py`**: Calculates psychological drivers (e.g., "Aspirational Score", "Conformity") based on social trends.
+*   **`trends/trend_analyzer.py`**: Merges Google Trends, Social Signal data, Sales Momentum, and Psychology Scores for a hybrid trend score.
 
-2️⃣ Fashion Psychology Engine
-Uses:
-Conformity bias
-Aspirational bias
-Identity signals (persona alignment)
-Cultural fit
-Availability heuristics
-Auto-learns weights OR uses fixed scoring
+### 2. `app/` (User Interface)
+*   **`app.py`**: The code for the **Streamlit Dashboard**. It reads the artifacts generated by `src/` and presents them in an interactive, user-friendly website.
 
-Outputs:
-PsychologyScore.csv per clothing category.
+### 3. `data/` (The Fuel)
+*   **`features/`**: Stores the processed training data for each category (e.g., `feat_hoodies.csv`).
+*   **`sales_cohort_...csv`**: The filtered, clean dataset used for training.
+*   **`dictionary_*.md`**: Auto-generated data dictionaries explaining your data columns.
 
-3️⃣ Inventory Optimization Brain
-Combines:
-Hybrid forecast
-Trend surge
-Sales velocity
-Psychology demand
-Price tiers (Low / Mid / High)
-Risk model
-Persona recommendation
+### 4. `models/` (The Memories)
+*   Contains the saved trained models (`.pkl`, `.joblib`) so we don't have to retrain every time.
+*   **`predictions/`**: CSVs showing exactly what the models predicted vs. what actually happened.
+*   **`metrics_summary.csv`**: The "Scorecard" comparing Prophet vs XGBoost vs Random Forest.
 
-Outputs:
-RecommendedOrderQty + RiskLevel + PersonaTarget
+---
 
-4️⃣ Streamlit Dashboard
-Includes:
-Prophet forecast viewer
-Trend Analyzer Dashboard
-Inventory Recommendation Dashboard
-Psychology Engine Dashboard
-Hashtag frequency charts
-Audio suggestions (text-to-speech)
+## 🚀 How to Run the Project
 
+### 🛠️ Setup & Installation
 
+**Prerequisites:** Python 3.9+
 
+1.  **Clone the Repository**
+    ```bash
+    git clone <repo-url>
+    cd Mens_Fashion_Forecast
+    ```
 
-Venv:
-# from project root
-python -m venv venv
-# PowerShell
-.\venv\Scripts\Activate.ps1
-# or CMD
-.\venv\Scripts\activate
-# Mac/Linux
-source venv/bin/activate
+2.  **Initialize & Activate Virtual Environment**
+    
+    *For Windows:*
+    ```bash
+    # Create venv
+    python -m venv venv
+    
+    # Activate
+    .\venv\Scripts\activate
+    ```
+    
+    *For Mac/Linux:*
+    ```bash
+    # Create venv
+    python3 -m venv venv
+    
+    # Activate
+    source venv/bin/activate
+    ```
 
-#Install packages
-pip install -r requirements.txt
+3.  **Install Dependencies**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
+4.  **Run the Dashboard**
+    ```bash
+    streamlit run app/app.py
+    ```
 
-Quick run (after activating venv):
-pip install -r requirements.txt
-python src/01_load_clean.py
-python src/02_feature_engineer.py
-python src/03_train_models.py
-python src/04_evaluate.py
-python src/05_inventory_opt.py
-python src/psychology/psychology_engine.py
-python src/trends/trend_analyzer.py
-python src/inventory/inventory_advisor.py
+### 🧠 Model Training (First Run) the Dashboard
+To see the system in action immediately:
+```bash
 streamlit run app/app.py
+```
+This will open the app in your web browser (usually at `http://localhost:8501`).
 
+### Step 3: Retrain the AI (Dynamic Update)
+If you want to process new data or retrain the models from scratch:
+1.  Open the App (`streamlit run app/app.py`).
+2.  Go to the **"Controls & Data Upload"** sidebar.
+3.  Upload your new CSV file.
+4.  Click **"🚀 Process & Retrain Model"**.
+5.  Watch the progress! The system will clean your data, engineer features, train all 3 models, and update the dashboard.
 
-Academic Relevance
-This project is aligned with:
-Fashion psychology
-Social Identity Theory
-Behavioral economics
-Predictive modeling
-Retail inventory optimization
-Machine learning forecasting
-Nepal-specific youth culture and social trends
+*(Alternatively, you can run `python src/pipeline.py` in your terminal)*
+
+---
+
+## 📊 What to Expect from the Dashboard
+
+The dashboard is divided into 5 "Smart Tabs" to handle different aspects of retail management:
+
+### 1. 📊 Smart Dashboard (The Action Center)
+*   **Goal:** Instant decision making.
+*   **What you see:**
+    *   **Action Card:** "Order 150 Units". A clear, unambiguous instruction.
+    *   **Context Card:** "Why? Because Social Buzz is High (8/10) and Risk is Low."
+    *   **Audio Button:** Click to hear the recommendation spoken out loud (great for accessibility).
+    *   **Forecast Graph:** Visualizing the predicted sales trend for the next 30-90 days.
+
+### 2. 🎯 Model Accuracy (The Proof)
+*   **Goal:** Verify the AI isn't lying.
+*   **What you see:** A leaderboard comparing **XGBoost**, **Random Forest**, and **Prophet**. The model with the lowest error (RMSE) is highlighted green. This proves your thesis rigor.
+
+### 3. 🧩 Smart Segmentation (The Strategy)
+*   **Goal:** Portfolio management.
+*   **What you see:** A scatter plot grouping your products into clusters.
+    *   **⭐ Star:** High Sales, High Trends.
+    *   **💰 Cash Cow:** High Sales, Steady Performance.
+    *   **❓ Opportunity:** Volatile, Potential for Growth (or "Problem Children").
+    *   **⚠️ Risk:** Low Sales, Weak Performance.
+
+### 4. 📝 Executive Summary (The Morning Report)
+*   **Goal:** Qualitative insights.
+*   **What you see:** An auto-generated newsletter identifying "Viral Trends" and explaining market behavior using psychological terms (e.g., "Aspirational Buying").
+
+### 6. Deep Dive Analysis (Sidebar Pages)
+For advanced users, the sidebar contains detailed reports:
+*   **Trend Analyzer:** Breakdown of why a trend is hot (Social vs Google vs Sales vs Psychology).
+*   **Inventory Advisor:** Full tabular recommender system with "Health Scores".
+*   **Psychology Engine:** 3D Scatter plot of cultural drivers.
+*   **Persona Identification:** NLP analysis of social comments.
+*   **Hashtag Heatmap:** Visual cloud of viral tags.
+
+### 5. 📋 Data Profile (The Audit)
+*   **Goal:** Authenticity transparency.
+*   **What you see:** Raw data previews and data dictionaries to prove you are using real, structured data.

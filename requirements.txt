@@ -3,6 +3,7 @@ numpy
 matplotlib
 seaborn
 prophet
+gTTS
 scikit-learn
 xgboost
 joblib
@@ -11,3 +12,7 @@ jupyter
 nltk
 wordcloud
 gtts
+requests
+beautifulsoup4
+pytrends
+plotly
